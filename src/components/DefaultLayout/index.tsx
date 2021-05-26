@@ -16,7 +16,7 @@ const DefaultLayout: React.FC = () => {
       <Sider>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<BankOutlined />}>
-            Home
+            Dashboard
           </Menu.Item>
           <Menu.Item key="2" icon={<InfoCircleOutlined />}>
             Dog Page
