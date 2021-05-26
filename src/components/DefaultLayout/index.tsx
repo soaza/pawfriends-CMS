@@ -10,9 +10,10 @@ import {
 } from "@ant-design/icons";
 import { Link, useHistory } from "react-router-dom";
 
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
-const DefaultLayout: React.FC = () => {
+const DefaultLayout: React.FC = (props) => {
+  const { children } = props;
   const history = useHistory();
 
   // some lazy ass way to get current page
@@ -66,6 +67,15 @@ const DefaultLayout: React.FC = () => {
           </Menu.Item>
         </Menu>
       </Sider>
+
+      <Content style={{ margin: "24px 16px 0" }}>
+        <div
+          className="site-layout-background"
+          style={{ padding: 24, minHeight: 360 }}
+        >
+          {children}
+        </div>
+      </Content>
     </Layout>
   );
 };
