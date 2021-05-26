@@ -1,35 +1,68 @@
 import * as React from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, message } from "antd";
 import {
   InfoCircleOutlined,
   BankOutlined,
   StarOutlined,
   UserOutlined,
   ReadOutlined,
+  ArrowLeftOutlined,
 } from "@ant-design/icons";
+import { Link, useHistory } from "react-router-dom";
 
 const { Sider } = Layout;
 
 const DefaultLayout: React.FC = () => {
+  const history = useHistory();
+
+  // some lazy ass way to get current page
+  const currentPage = window.location.href.split("/")[3]
+    ? window.location.href.split("/")[3]
+    : "home";
+
+  const logUserOut = () => {
+    localStorage.removeItem("userLoggedIn");
+    message.success("Successfully logged out!");
+    history.push("/login");
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
-        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1" icon={<BankOutlined />}>
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          selectedKeys={[currentPage]}
+          mode="inline"
+        >
+          <Menu.Item key="home" icon={<BankOutlined />}>
             Dashboard
+            <Link to="/home" />
           </Menu.Item>
-          <Menu.Item key="2" icon={<InfoCircleOutlined />}>
+          <Menu.Item key="dogs" icon={<InfoCircleOutlined />}>
             Dog Page
+            <Link to="/dogs" />
           </Menu.Item>
 
-          <Menu.Item key="3" icon={<UserOutlined />}>
+          <Menu.Item key="exco" icon={<UserOutlined />}>
             Exco Page
+            <Link to="/exco" />
           </Menu.Item>
-          <Menu.Item key="4" icon={<StarOutlined />}>
+          <Menu.Item key="main" icon={<StarOutlined />}>
             Main Page
+            <Link to="/main" />
           </Menu.Item>
-          <Menu.Item key="5" icon={<ReadOutlined />}>
+          <Menu.Item key="activity" icon={<ReadOutlined />}>
             'What we do' Page
+            <Link to="/activity" />
+          </Menu.Item>
+
+          <Menu.Item
+            onClick={() => logUserOut()}
+            key="logout"
+            icon={<ArrowLeftOutlined />}
+          >
+            Logout
           </Menu.Item>
         </Menu>
       </Sider>

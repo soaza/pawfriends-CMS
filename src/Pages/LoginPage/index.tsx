@@ -6,7 +6,12 @@ import { useHistory } from "react-router-dom";
 const { Title } = Typography;
 const { useState } = React;
 
-const LoginPage: React.FC = () => {
+interface IProps {
+  setUserAuthenticated: (authenticated: boolean) => void;
+}
+
+const LoginPage: React.FC<IProps> = (props) => {
+  const { setUserAuthenticated } = props;
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
@@ -16,7 +21,15 @@ const LoginPage: React.FC = () => {
       username: username,
       password: password,
     });
-    response ? history.push("/home") : message.error("Wrong Login Details");
+
+    if (response) {
+      localStorage.setItem("userLoggedIn", "true");
+      message.success("Successfully logged in!");
+      setUserAuthenticated(true);
+      history.push("/home");
+    } else {
+      message.error("Wrong Login Details");
+    }
   };
 
   return (
