@@ -11,8 +11,6 @@ import ActivityPage from "./Pages/ActivityPage";
 
 const { useState, useEffect } = React;
 
-console.log(localStorage.getItem("userLoggedIn"));
-
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState<boolean>(false);
   useEffect(() => {

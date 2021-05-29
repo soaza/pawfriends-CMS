@@ -17,18 +17,21 @@ const LoginPage: React.FC<IProps> = (props) => {
   const history = useHistory();
 
   const submitLoginForm = async () => {
-    const response = await getUser({
-      username: username,
-      password: password,
-    });
-
-    if (response) {
-      localStorage.setItem("userLoggedIn", "true");
-      message.success("Successfully logged in!");
-      setUserAuthenticated(true);
-      history.push("/home");
-    } else {
-      message.error("Wrong Login Details");
+    try {
+      const response = await getUser({
+        username: username,
+        password: password,
+      });
+      if (response) {
+        localStorage.setItem("userLoggedIn", "true");
+        message.success("Successfully logged in!");
+        setUserAuthenticated(true);
+        history.push("/home");
+      } else {
+        message.error("Wrong login details.");
+      }
+    } catch {
+      message.error("Error connecting to server.");
     }
   };
 

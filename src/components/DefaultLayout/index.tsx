@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, Menu, message } from "antd";
+import { Layout, Menu, message, Grid } from "antd";
 import {
   InfoCircleOutlined,
   BankOutlined,
@@ -12,9 +12,14 @@ import { Link, useHistory } from "react-router-dom";
 
 const { Sider, Content } = Layout;
 
-const DefaultLayout: React.FC = (props) => {
+interface IProps {
+  children?: any;
+}
+const DefaultLayout: React.FC<IProps> = (props) => {
   const { children } = props;
   const history = useHistory();
+  const bp = Grid.useBreakpoint();
+  const isWeb = bp.lg;
 
   // some lazy ass way to get current page
   const currentPage = window.location.href.split("/")[3]
@@ -26,6 +31,8 @@ const DefaultLayout: React.FC = (props) => {
     message.success("Successfully logged out!");
     history.push("/login");
   };
+
+  if (!isWeb) return children ? children : <div />;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>

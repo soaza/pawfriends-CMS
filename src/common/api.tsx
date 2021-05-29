@@ -78,3 +78,14 @@ export async function getDogs(): Promise<any> {
   const response = await get<any>(request);
   return response;
 }
+
+export async function updateDogInfo(dog: IDogData): Promise<any> {
+  const { dog_id, dog_gender, dog_name, dog_age } = dog;
+  const request: IRequest = {
+    endpoint: `update/dog`,
+    params: { dog_id, dog_gender, dog_name, dog_age },
+  };
+
+  const response = await patch<any>(request);
+  return response.success;
+}
