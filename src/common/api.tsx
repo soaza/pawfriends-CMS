@@ -89,3 +89,37 @@ export async function updateDogInfo(dog: IDogData): Promise<any> {
   const response = await patch<any>(request);
   return response.success;
 }
+
+// Exco
+
+export async function getExcos(): Promise<IExcoData[]> {
+  const request: IRequest = {
+    endpoint: `excos`,
+  };
+
+  const response = await get<any>(request);
+  return response;
+}
+
+export async function updateExcoInfo(exco: IExcoData): Promise<IExcoData[]> {
+  const {
+    exco_id,
+    exco_name,
+    exco_year_of_study,
+    exco_hobbies,
+    exco_favourite_dog,
+  } = exco;
+  const request: IRequest = {
+    endpoint: `update/exco`,
+    params: {
+      exco_id,
+      exco_name,
+      exco_year_of_study,
+      exco_hobbies,
+      exco_favourite_dog,
+    },
+  };
+
+  const response = await patch<any>(request);
+  return response.success;
+}

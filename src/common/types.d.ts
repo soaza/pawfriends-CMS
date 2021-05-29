@@ -11,3 +11,12 @@ interface IDogData {
   dog_characteristics: string;
   [key: string]: any;
 }
+
+interface IExcoData {
+  exco_id: number;
+  exco_name: string;
+  exco_year_of_study: number;
+  exco_hobbies: string;
+  exco_favourite_dog: string;
+  [key: string]: any;
+}
