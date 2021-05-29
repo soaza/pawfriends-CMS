@@ -80,10 +80,10 @@ export async function getDogs(): Promise<any> {
 }
 
 export async function updateDogInfo(dog: IDogData): Promise<any> {
-  const { dog_id, dog_gender, dog_name, dog_age } = dog;
+  const { dog_id, dog_gender, dog_name, dog_age, dog_characteristics } = dog;
   const request: IRequest = {
     endpoint: `update/dog`,
-    params: { dog_id, dog_gender, dog_name, dog_age },
+    params: { dog_id, dog_gender, dog_name, dog_age, dog_characteristics },
   };
 
   const response = await patch<any>(request);

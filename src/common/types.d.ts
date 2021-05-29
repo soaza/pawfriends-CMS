@@ -8,4 +8,6 @@ interface IDogData {
   dog_age: number;
   dog_gender: string;
   dog_name: string;
+  dog_characteristics: string;
+  [key: string]: any;
 }

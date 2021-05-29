@@ -23,12 +23,11 @@ const labelValueMapping = [
   { value: "dog_name", label: "Name" },
   { value: "dog_gender", label: "Gender" },
   { value: "dog_age", label: "Age" },
-  { value: "dog_characteristics", label: "Characteristics" },
 ];
 
 const InfoTable: React.FC<IProps> = (props) => {
   const { dog } = props;
-  const [editableDogInfo, setEditableDogInfo] = useState<any>(dog);
+  const [editableDogInfo, setEditableDogInfo] = useState<IDogData>(dog);
   const [showUpdateButton, setShowUpdateButton] = useState<boolean>(false);
 
   const onUpdate = async () => {
@@ -86,6 +85,25 @@ const InfoTable: React.FC<IProps> = (props) => {
                 </Descriptions.Item>
               );
             })}
+
+            <Descriptions.Item label={"Characteristics"} span={3}>
+              <Paragraph
+                editable={{
+                  tooltip: "Click to edit text",
+                  onChange: (text) => {
+                    setShowUpdateButton(true);
+                    const newDogObj = { ...editableDogInfo };
+                    newDogObj["dog_characteristics"] = text;
+                    setEditableDogInfo(newDogObj);
+                  },
+                }}
+              >
+                {editableDogInfo.dog_characteristics}
+                {!editableDogInfo.dog_characteristics && (
+                  <span style={{ color: "gray" }}>No information</span>
+                )}
+              </Paragraph>
+            </Descriptions.Item>
           </Descriptions>
 
           <Row justify="center">
