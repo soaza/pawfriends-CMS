@@ -57,18 +57,9 @@ const InfoTable: React.FC<IProps> = (props) => {
 
         <Col span={24} lg={16}>
           <Descriptions
-            style={{
-              borderBlock: "2px solid",
-              marginTop: "20px",
-              marginLeft: "20px",
-            }}
-            labelStyle={{
-              fontSize: "20px",
-              textAlign: "center",
-            }}
-            contentStyle={{
-              fontSize: "16px",
-            }}
+            style={s.description}
+            labelStyle={s.label as any}
+            contentStyle={s.content}
             bordered
           >
             {labelValueMapping.map((row) => {
@@ -127,6 +118,21 @@ const InfoTable: React.FC<IProps> = (props) => {
       </Row>
     </>
   );
+};
+
+const s = {
+  description: {
+    borderBlock: "2px solid",
+    marginTop: "20px",
+    marginLeft: "20px",
+  },
+  label: {
+    fontSize: "20px",
+    textAlign: "center",
+  },
+  content: {
+    fontSize: "16px",
+  },
 };
 
 export default InfoTable;
