@@ -123,3 +123,13 @@ export async function updateExcoInfo(exco: IExcoData): Promise<IExcoData[]> {
   const response = await patch<any>(request);
   return response.success;
 }
+
+// Main Page
+export async function getMainDescription(): Promise<string> {
+  const request: IRequest = {
+    endpoint: `mainpage`,
+  };
+
+  const response = await get<any>(request);
+  return response.pawfriends_description;
+}
