@@ -12,14 +12,14 @@ import ActivityPage from "./Pages/ActivityPage";
 const { useState, useEffect } = React;
 
 function App() {
-  const [userAuthenticated, setUserAuthenticated] = useState<boolean>(false);
+  const [userAuthenticated, setUserAuthenticated] = useState<boolean>();
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("userLoggedIn") == "true";
     setUserAuthenticated(isLoggedIn);
   }, []);
   const location = useLocation();
 
-  if (!userAuthenticated)
+  if (userAuthenticated == false)
     return <LoginPage setUserAuthenticated={setUserAuthenticated} />;
 
   return (

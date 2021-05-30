@@ -79,7 +79,7 @@ export async function getDogs(): Promise<any> {
   return response;
 }
 
-export async function updateDogInfo(dog: IDogData): Promise<any> {
+export async function updateDogInfo(dog: IDogData): Promise<boolean> {
   const { dog_id, dog_gender, dog_name, dog_age, dog_characteristics } = dog;
   const request: IRequest = {
     endpoint: `update/dog`,
@@ -101,7 +101,7 @@ export async function getExcos(): Promise<IExcoData[]> {
   return response;
 }
 
-export async function updateExcoInfo(exco: IExcoData): Promise<IExcoData[]> {
+export async function updateExcoInfo(exco: IExcoData): Promise<boolean> {
   const {
     exco_id,
     exco_name,
@@ -132,4 +132,18 @@ export async function getMainDescription(): Promise<string> {
 
   const response = await get<any>(request);
   return response.pawfriends_description;
+}
+
+export async function updateMainDescription(
+  description: string
+): Promise<boolean> {
+  const request: IRequest = {
+    endpoint: `update/mainpage`,
+    params: {
+      description,
+    },
+  };
+
+  const response = await patch<any>(request);
+  return response.success;
 }
