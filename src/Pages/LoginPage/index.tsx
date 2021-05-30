@@ -4,7 +4,7 @@ import { getUser } from "../../common/api";
 import { useHistory } from "react-router-dom";
 
 const { Title } = Typography;
-const { useState } = React;
+const { useState, useEffect } = React;
 
 interface IProps {
   setUserAuthenticated: (authenticated: boolean) => void;
@@ -15,6 +15,14 @@ const LoginPage: React.FC<IProps> = (props) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem("userLoggedIn") !== "true") history.push("/login");
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("userLoggedIn") == "true") history.push("/home");
+  }, []);
 
   const submitLoginForm = async () => {
     try {
