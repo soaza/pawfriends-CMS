@@ -98,7 +98,7 @@ const InfoTable: React.FC<IProps> = (props) => {
                     setEditableExcoInfo(exco);
                   }}
                 >
-                  Cancel Changes
+                  Discard Changes
                 </Button>
 
                 <Button

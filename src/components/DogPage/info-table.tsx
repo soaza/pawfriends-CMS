@@ -116,7 +116,7 @@ const InfoTable: React.FC<IProps> = (props) => {
                     setEditableDogInfo(dog);
                   }}
                 >
-                  Cancel Changes
+                  Discard Changes
                 </Button>
 
                 <Button
