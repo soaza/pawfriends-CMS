@@ -51,7 +51,11 @@ const DescriptionForm: React.FC<IProps> = (props) => {
               <p style={{ fontSize: 18, margin: 0, marginRight: 10 }}>Date: </p>
               <DatePicker
                 onChange={(date) => {
-                  console.log(date?.toDate());
+                  if (date)
+                    setEditedPost({
+                      ...editedPost,
+                      date_posted: date?.toDate(),
+                    });
                 }}
               />
             </Row>
