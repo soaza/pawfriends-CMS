@@ -48,12 +48,12 @@ async function post<T>(request: IRequest): Promise<T> {
   return await makeRequest(request, "POST");
 }
 
-// Called remove instead of delete because "delete" is a protected keyword
 async function remove<T>(request: IRequest): Promise<T> {
   return await makeRequest(request, "DELETE");
 }
 
 // Login
+
 export async function getUser(req: ILoginDetails): Promise<boolean> {
   const request: IRequest = {
     endpoint: `login`,
@@ -125,6 +125,7 @@ export async function updateExcoInfo(exco: IExcoData): Promise<boolean> {
 }
 
 // Main Page
+
 export async function getMainDescription(): Promise<string> {
   const request: IRequest = {
     endpoint: `mainpage`,
@@ -142,6 +143,30 @@ export async function updateMainDescription(
     params: {
       description,
     },
+  };
+
+  const response = await patch<any>(request);
+  return response.success;
+}
+
+// Activity Page
+export async function getActivityPosts(): Promise<IActivityPosts[]> {
+  const request: IRequest = {
+    endpoint: `activities`,
+  };
+
+  const response = await get<IActivityPosts[]>(request);
+  return response;
+}
+
+export async function updateActivityPost(
+  post: IActivityPosts
+): Promise<boolean> {
+  const { post_id, date_posted, activity_description } = post;
+
+  const request: IRequest = {
+    endpoint: `update/activity`,
+    params: { post_id, date_posted, activity_description },
   };
 
   const response = await patch<any>(request);

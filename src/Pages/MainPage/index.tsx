@@ -3,7 +3,7 @@ import { Button, Card, Row, Typography } from "antd";
 import React from "react";
 import ReactHTMLParser from "react-html-parser";
 import { getMainDescription } from "../../common/api";
-import DescriptionForm from "../../components/MainPage/DescriptionForm";
+import DescriptionForm from "../../components/MainPage/description-form";
 
 const { Title } = Typography;
 

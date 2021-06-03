@@ -4,7 +4,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { updateMainDescription } from "../../common/api";
 
-const { useEffect, useState } = React;
+const { useState } = React;
 
 interface IProps {
   description: string;

@@ -20,3 +20,9 @@ interface IExcoData {
   exco_favourite_dog: string;
   [key: string]: any;
 }
+
+interface IActivityPosts {
+  post_id: number;
+  date_posted: Date;
+  activity_description: string;
+}
