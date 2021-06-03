@@ -4,6 +4,7 @@ import React from "react";
 import ReactHTMLParser from "react-html-parser";
 import { getActivityPosts } from "../../common/api";
 import DescriptionForm from "../../components/ActivityPage/description-form";
+import dateFormat from "dateformat";
 
 const { Title } = Typography;
 
@@ -40,7 +41,13 @@ const ActivityPage: React.FC = () => {
                     marginTop: "20px",
                   }}
                 >
-                  {ReactHTMLParser(post.activity_description)}
+                  <>
+                    <b>Date: </b>
+                    {dateFormat(post.date_posted, "dddd, mmmm dS, yyyy")}
+                    <br />
+                    <br />
+                    {ReactHTMLParser(post.activity_description)}
+                  </>
                 </Card>
               </>
 

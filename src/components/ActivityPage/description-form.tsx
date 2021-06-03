@@ -1,4 +1,4 @@
-import { Button, message, Row } from "antd";
+import { Button, message, Row, DatePicker } from "antd";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -47,6 +47,15 @@ const DescriptionForm: React.FC<IProps> = (props) => {
       {showForm && (
         <>
           <Row>
+            <Row style={{ marginBottom: 10 }}>
+              <p style={{ fontSize: 18, margin: 0, marginRight: 10 }}>Date: </p>
+              <DatePicker
+                onChange={(date) => {
+                  console.log(date?.toDate());
+                }}
+              />
+            </Row>
+
             <ReactQuill
               style={{ height: "200px", width: "100%" }}
               value={editedPost.activity_description}
