@@ -18,7 +18,6 @@ const DescriptionForm: React.FC<IProps> = (props) => {
   const submitEditedDescription = async () => {
     try {
       const response = await updateMainDescription(editedDescription);
-      console.log(response);
       if (response) {
         message.success("Update successful");
       } else {

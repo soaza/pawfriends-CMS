@@ -43,7 +43,8 @@ const ActivityPage: React.FC = () => {
                 >
                   <>
                     <b>Date: </b>
-                    {dateFormat(post.date_posted, "dddd, mmmm dS, yyyy")}
+                    {post.date_posted &&
+                      String(post.date_posted).substring(0, 10)}
                     <br />
                     <br />
                     {ReactHTMLParser(post.activity_description)}

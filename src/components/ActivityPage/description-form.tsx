@@ -3,6 +3,7 @@ import * as React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { updateActivityPost, updateMainDescription } from "../../common/api";
+import moment from "moment";
 
 const { useState } = React;
 
@@ -54,7 +55,11 @@ const DescriptionForm: React.FC<IProps> = (props) => {
                   if (date)
                     setEditedPost({
                       ...editedPost,
-                      date_posted: date?.toDate(),
+                      date_posted: new Date(
+                        moment(date?.toDate())
+                          .utcOffset("+8")
+                          .format("YYYY-MM-DD HH:mm")
+                      ),
                     });
                 }}
               />
