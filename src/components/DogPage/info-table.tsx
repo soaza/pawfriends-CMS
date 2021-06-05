@@ -9,15 +9,17 @@ import {
   Row,
   Typography,
 } from "antd";
-import { updateDogInfo } from "../../common/api";
+import { postDogImage, updateDogInfo } from "../../common/api";
 import FileUpload from "../ActivityPage/upload";
 
 const { Paragraph } = Typography;
 
-const { useState } = React;
+const { useState, useEffect } = React;
 
 interface IProps {
   dog: any;
+  dogImages: IDogImageEndpoint[];
+  setRefetchApi: (refetchApi: boolean) => void;
 }
 
 const labelValueMapping = [
@@ -27,9 +29,32 @@ const labelValueMapping = [
 ];
 
 const InfoTable: React.FC<IProps> = (props) => {
-  const { dog } = props;
+  const { dog, dogImages, setRefetchApi } = props;
   const [editableDogInfo, setEditableDogInfo] = useState<IDogData>(dog);
   const [showUpdateButton, setShowUpdateButton] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [imageUpdated, setImageUpdated] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (imageUpdated) {
+      onImageUpdate();
+      setImageUpdated(false);
+    }
+  }, [imageUpdated]);
+
+  const onImageUpdate = async () => {
+    try {
+      const response = await postDogImage(dog.dog_id, imageUrl);
+      setRefetchApi(true);
+      if (response) {
+        message.success("Update successful");
+      } else {
+        message.error("Failed to update");
+      }
+    } catch {
+      message.error("Failed to connect to server.");
+    }
+  };
 
   const onUpdate = async () => {
     try {
@@ -49,11 +74,21 @@ const InfoTable: React.FC<IProps> = (props) => {
       <Row>
         <Col span={24} lg={8}>
           <Card
-            style={{ height: "300px", width: "100%", marginBottom: "20px" }}
+            style={{ height: "700px", width: "100%", marginBottom: "20px" }}
           >
-            <Empty />
+            {dogImages.length > 0 ? (
+              <img
+                style={{ height: "auto", width: "100%" }}
+                src={dogImages.slice(-1)[0].image_url}
+              />
+            ) : (
+              <Empty />
+            )}
           </Card>
-          <FileUpload />
+          <FileUpload
+            setImageUrl={setImageUrl}
+            setImageUpdated={setImageUpdated}
+          />
         </Col>
 
         <Col span={24} lg={16}>

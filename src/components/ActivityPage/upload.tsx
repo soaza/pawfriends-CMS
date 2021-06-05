@@ -1,10 +1,14 @@
 import { Button, Input, message, Row, Col, Spin } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
+import { setOriginalNode } from "typescript";
 
-const FileUpload = () => {
-  // If you are using TypeScript the state will be
-  // const [file, setFile] = useState<FileList | null>(null);
+interface IProps {
+  setImageUrl: (imageUrl: string) => void;
+  setImageUpdated: (imageUpdated: boolean) => void;
+}
+const FileUpload: React.FC<IProps> = (props) => {
+  const { setImageUpdated, setImageUrl } = props;
   const [file, setFile] = useState<any>(null);
   const [uploading, setUploading] = useState<boolean>(false);
 
@@ -13,17 +17,21 @@ const FileUpload = () => {
       if (!file) {
         throw new Error("Select a file first!");
       }
+
       const formData = new FormData();
       formData.append("file", file[0]);
       setUploading(true);
+
       await axios
         .post(`http://localhost:3001/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         })
-        .then((res) => console.log(res.data.Location));
+        .then((res) => setImageUrl(res.data.Location));
+
       message.success("Image uploaded!");
+      setImageUpdated(true);
     } catch (error) {
       // handle error
       message.error("Error uploading,please try again.");

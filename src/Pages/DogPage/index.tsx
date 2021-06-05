@@ -1,28 +1,42 @@
 import * as React from "react";
-import { Typography, Row, Card } from "antd";
+import { Typography, Card } from "antd";
 import DefaultLayout from "../../components/DefaultLayout";
 import { getDogs } from "../../common/api";
 import InfoTable from "../../components/DogPage/info-table";
 
 const { useEffect, useState } = React;
 const { Title } = Typography;
+
+interface IDogImageEndpoint {
+  image_id: number;
+  dog_id: number;
+  image_url: string;
+}
 const DogPage: React.FC = () => {
   const [dogs, setDogs] = useState<IDogData[]>();
+  const [images, setImages] = useState<IDogImageEndpoint[]>([]);
+  const [refetchApi, setRefetchApi] = useState<boolean>(false);
+
+  const loadDogs = async () => {
+    const res = await getDogs();
+    setDogs(res.dogs);
+    setImages(res.images);
+  };
 
   useEffect(() => {
-    const loadDogs = async () => {
-      const dogs = await getDogs();
-      setDogs(dogs);
-    };
     loadDogs();
-  }, []);
+  }, [refetchApi]);
 
   return (
     <>
       <DefaultLayout>
         <Title style={{ textAlign: "center" }}>Dog Page</Title>
         {dogs &&
+          images &&
           dogs.map((dog) => {
+            const dogImages = images.filter(
+              (image) => image.dog_id == dog.dog_id
+            );
             return (
               <>
                 <Card
@@ -34,7 +48,11 @@ const DogPage: React.FC = () => {
                     marginBottom: "20px",
                   }}
                 >
-                  <InfoTable dog={dog} />
+                  <InfoTable
+                    setRefetchApi={setRefetchApi}
+                    dogImages={dogImages}
+                    dog={dog}
+                  />
                 </Card>
               </>
             );

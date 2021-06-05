@@ -12,6 +12,12 @@ interface IDogData {
   [key: string]: any;
 }
 
+interface IDogImageEndpoint {
+  image_id: number;
+  dog_id: number;
+  image_url: string;
+}
+
 interface IExcoData {
   exco_id: number;
   exco_name: string;

@@ -90,6 +90,19 @@ export async function updateDogInfo(dog: IDogData): Promise<boolean> {
   return response.success;
 }
 
+export async function postDogImage(
+  dog_id: number,
+  image_url: string
+): Promise<boolean> {
+  const request: IRequest = {
+    endpoint: `post/dog_image`,
+    data: { dog_id, image_url },
+  };
+
+  const response = await post<any>(request);
+  return response.success;
+}
+
 // Exco
 
 export async function getExcos(): Promise<IExcoData[]> {
