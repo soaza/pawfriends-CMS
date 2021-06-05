@@ -11,7 +11,7 @@ interface IProps {
   post: IActivityPosts;
   setReload: (reload: boolean) => void;
 }
-const DescriptionForm: React.FC<IProps> = (props) => {
+const DescriptionFormUpdate: React.FC<IProps> = (props) => {
   const { post, setReload } = props;
   const [editedPost, setEditedPost] = useState<IActivityPosts>(post);
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -98,4 +98,4 @@ const DescriptionForm: React.FC<IProps> = (props) => {
   );
 };
 
-export default DescriptionForm;
+export default DescriptionFormUpdate;

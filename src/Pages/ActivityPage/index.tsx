@@ -3,8 +3,10 @@ import { Button, Card, Row, Typography } from "antd";
 import React from "react";
 import ReactHTMLParser from "react-html-parser";
 import { getActivityPosts } from "../../common/api";
-import DescriptionForm from "../../components/ActivityPage/description-form";
+import DescriptionFormUpdate from "../../components/ActivityPage/description-form-update";
 import dateFormat from "dateformat";
+import DescriptionFormPost from "../../components/ActivityPage/description-form-post";
+import Upload from "../../components/ActivityPage/upload";
 
 const { Title } = Typography;
 
@@ -52,10 +54,12 @@ const ActivityPage: React.FC = () => {
                 </Card>
               </>
 
-              <DescriptionForm setReload={setReload} post={post} />
+              <DescriptionFormUpdate setReload={setReload} post={post} />
             </>
           );
         })}
+
+      <DescriptionFormPost setReload={setReload} />
     </DefaultLayout>
   );
 };

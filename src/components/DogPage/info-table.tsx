@@ -10,6 +10,7 @@ import {
   Typography,
 } from "antd";
 import { updateDogInfo } from "../../common/api";
+import FileUpload from "../ActivityPage/upload";
 
 const { Paragraph } = Typography;
 
@@ -52,6 +53,7 @@ const InfoTable: React.FC<IProps> = (props) => {
           >
             <Empty />
           </Card>
+          <FileUpload />
         </Col>
 
         <Col span={24} lg={16}>

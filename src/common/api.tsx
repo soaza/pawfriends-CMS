@@ -172,3 +172,28 @@ export async function updateActivityPost(
   const response = await patch<any>(request);
   return response.success;
 }
+
+export async function submitActivityPost(
+  form: IActivityPostForm
+): Promise<boolean> {
+  const { date, description } = form;
+
+  const request: IRequest = {
+    endpoint: `post/activity`,
+    data: { date, description },
+  };
+
+  const response = await post<boolean>(request);
+  return response;
+}
+
+// export async function postImage(image: any): Promise<any> {
+//   const request: IRequest = {
+//     endpoint: `upload`,
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//     },
+//   };
+//   const response = await post<any>(request);
+//   return response;
+// }

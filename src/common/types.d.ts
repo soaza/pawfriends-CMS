@@ -26,3 +26,10 @@ interface IActivityPosts {
   date_posted: Date;
   activity_description: string;
 }
+
+interface IActivityPostForm {
+  date: Date;
+  description: string;
+}
+
+type TFormSubmitType = "post" | "update";
