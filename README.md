@@ -2,6 +2,11 @@
 
 Repo for a dashboard/Content Management System for Pawfriends
 
+Main features include:
+- Account Management System with basic user login authentication
+- Editing features for each individual page and allowing the users to make new blogs posts on the website
+- Image uploading to Amazon S3
+
 
 ## Tech-stack Used:
 Front-end
