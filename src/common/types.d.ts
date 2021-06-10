@@ -16,6 +16,7 @@ interface IDogImageEndpoint {
   image_id: number;
   dog_id: number;
   image_url: string;
+  gallery_position: number;
 }
 
 interface IExcoData {

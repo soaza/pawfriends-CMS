@@ -92,11 +92,12 @@ export async function updateDogInfo(dog: IDogData): Promise<boolean> {
 
 export async function postDogImage(
   dog_id: number,
-  image_url: string
+  image_url: string,
+  gallery_position: number
 ): Promise<boolean> {
   const request: IRequest = {
     endpoint: `post/dog_image`,
-    data: { dog_id, image_url },
+    data: { dog_id, image_url, gallery_position },
   };
 
   const response = await post<any>(request);

@@ -7,11 +7,6 @@ import InfoTable from "../../components/DogPage/info-table";
 const { useEffect, useState } = React;
 const { Title } = Typography;
 
-interface IDogImageEndpoint {
-  image_id: number;
-  dog_id: number;
-  image_url: string;
-}
 const DogPage: React.FC = () => {
   const [dogs, setDogs] = useState<IDogData[]>();
   const [images, setImages] = useState<IDogImageEndpoint[]>([]);

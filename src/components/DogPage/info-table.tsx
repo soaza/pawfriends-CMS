@@ -1,20 +1,12 @@
 import * as React from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Descriptions,
-  Empty,
-  message,
-  Row,
-  Typography,
-} from "antd";
-import { postDogImage, updateDogInfo } from "../../common/api";
+import { Card, Col, Empty, message, Row, Select, Typography } from "antd";
+import { postDogImage } from "../../common/api";
 import FileUpload from "../ActivityPage/upload";
-
-const { Paragraph } = Typography;
+import Description from "./description";
+import ImageGallery from "./image-gallery";
 
 const { useState, useEffect } = React;
+const { Option } = Select;
 
 interface IProps {
   dog: any;
@@ -22,18 +14,12 @@ interface IProps {
   setRefetchApi: (refetchApi: boolean) => void;
 }
 
-const labelValueMapping = [
-  { value: "dog_name", label: "Name" },
-  { value: "dog_gender", label: "Gender" },
-  { value: "dog_age", label: "Age" },
-];
-
 const InfoTable: React.FC<IProps> = (props) => {
   const { dog, dogImages, setRefetchApi } = props;
-  const [editableDogInfo, setEditableDogInfo] = useState<IDogData>(dog);
-  const [showUpdateButton, setShowUpdateButton] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [imageUpdated, setImageUpdated] = useState<boolean>(false);
+  const [imageUploadPosition, setImageUploadPosition] = useState<number>();
+  const [disableUpload, setDisableUpload] = useState<boolean>(true);
 
   useEffect(() => {
     if (imageUpdated) {
@@ -42,9 +28,18 @@ const InfoTable: React.FC<IProps> = (props) => {
     }
   }, [imageUpdated]);
 
+  useEffect(() => {
+    if (imageUploadPosition || imageUploadPosition === 0)
+      setDisableUpload(false);
+  }, [imageUploadPosition]);
+
   const onImageUpdate = async () => {
     try {
-      const response = await postDogImage(dog.dog_id, imageUrl);
+      const response = await postDogImage(
+        dog.dog_id,
+        imageUrl,
+        imageUploadPosition ? imageUploadPosition : 0
+      );
       setRefetchApi(true);
       if (response) {
         message.success("Update successful");
@@ -56,119 +51,68 @@ const InfoTable: React.FC<IProps> = (props) => {
     }
   };
 
-  const onUpdate = async () => {
-    try {
-      const response = await updateDogInfo(editableDogInfo);
-      if (response) {
-        message.success("Update successful");
-      } else {
-        message.error("Failed to update");
-      }
-    } catch {
-      message.error("Failed to connect to server.");
-    }
-  };
+  const imageOptions = [
+    { value: 0, label: "Cover" },
+    { value: 1, label: "Gallery Image 1" },
+    { value: 2, label: "Gallery Image 2" },
+    { value: 3, label: "Gallery Image 3" },
+    { value: 4, label: "Gallery Image 4" },
+  ];
+
+  const coverImageUrl = dogImages.filter(
+    (image) => image.gallery_position == 0
+  )[0]?.image_url;
 
   return (
     <>
       <Row>
         <Col span={24} lg={8}>
           <Card
-            style={{ height: "700px", width: "100%", marginBottom: "20px" }}
+            style={{
+              textAlign: "center",
+              height: "700px",
+              width: "100%",
+              marginBottom: "20px",
+            }}
           >
+            <h2>Cover Image</h2>
             {dogImages.length > 0 ? (
               <img
                 style={{ height: "auto", width: "100%" }}
-                src={dogImages.slice(-1)[0].image_url}
+                src={coverImageUrl}
               />
             ) : (
               <Empty />
             )}
           </Card>
+
+          <Row justify="space-between">
+            <Col></Col>
+
+            <Col span={12}>
+              <Select
+                onChange={(position: number) =>
+                  setImageUploadPosition(position)
+                }
+                options={imageOptions}
+                style={{ width: "100%" }}
+                placeholder="Select Image Position"
+              />
+            </Col>
+          </Row>
+
           <FileUpload
+            disableUpload={disableUpload}
+            errorMessage={"Please select an Image Position!"}
             setImageUrl={setImageUrl}
             setImageUpdated={setImageUpdated}
           />
         </Col>
 
         <Col span={24} lg={16}>
-          <Descriptions
-            style={s.description}
-            labelStyle={s.label as any}
-            contentStyle={s.content}
-            bordered
-          >
-            {labelValueMapping.map((row) => {
-              const field = row.value;
+          <Description dog={dog} setRefetchApi={setRefetchApi} />
 
-              return (
-                <Descriptions.Item label={row.label} span={3}>
-                  <Paragraph
-                    editable={{
-                      tooltip: "Click to edit text",
-                      onChange: (text) => {
-                        setShowUpdateButton(true);
-                        const newDogObj = { ...editableDogInfo };
-                        newDogObj[field] = text;
-                        setEditableDogInfo(newDogObj);
-                      },
-                    }}
-                  >
-                    {editableDogInfo[field]}
-                    {!editableDogInfo[field] && (
-                      <span style={{ color: "gray" }}>No information</span>
-                    )}
-                  </Paragraph>
-                </Descriptions.Item>
-              );
-            })}
-
-            <Descriptions.Item label={"Characteristics"} span={3}>
-              <Paragraph
-                editable={{
-                  tooltip: "Click to edit text",
-                  onChange: (text) => {
-                    setShowUpdateButton(true);
-                    const newDogObj = { ...editableDogInfo };
-                    newDogObj["dog_characteristics"] = text;
-                    setEditableDogInfo(newDogObj);
-                  },
-                }}
-              >
-                {editableDogInfo.dog_characteristics}
-                {!editableDogInfo.dog_characteristics && (
-                  <span style={{ color: "gray" }}>No information</span>
-                )}
-              </Paragraph>
-            </Descriptions.Item>
-          </Descriptions>
-
-          <Row justify="center">
-            {showUpdateButton && (
-              <>
-                <Button
-                  style={{ marginTop: "10px", marginRight: "10px" }}
-                  onClick={() => {
-                    setShowUpdateButton(false);
-                    setEditableDogInfo(dog);
-                  }}
-                >
-                  Discard Changes
-                </Button>
-
-                <Button
-                  style={{ marginTop: "10px" }}
-                  onClick={() => {
-                    onUpdate();
-                    setShowUpdateButton(false);
-                  }}
-                  type="primary"
-                >
-                  Save Changes
-                </Button>
-              </>
-            )}
-          </Row>
+          <ImageGallery dogImages={dogImages} />
         </Col>
       </Row>
     </>
