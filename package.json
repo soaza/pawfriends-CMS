@@ -1,5 +1,5 @@
 {
-  "name": "pawfriends-cms",
+  "homepage": "https://soaza.github.io/pawfriends-CMS/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -53,6 +55,7 @@
     "@types/dateformat": "^3.0.1",
     "@types/react-html-parser": "^2.0.1",
     "@types/react-router-dom": "^5.1.7",
+    "gh-pages": "^3.2.0",
     "react-s3": "^1.3.1"
   }
 }
