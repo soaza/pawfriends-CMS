@@ -47,15 +47,15 @@ const InfoTable: React.FC<IProps> = (props) => {
   return (
     <>
       <Row>
-        <Col span={24} lg={8}>
+        {/* <Col span={24} lg={8}>
           <Card
             style={{ height: "300px", width: "100%", marginBottom: "20px" }}
           >
             <Empty />
           </Card>
-        </Col>
+        </Col> */}
 
-        <Col span={24} lg={16}>
+        <Col span={24}>
           <Descriptions
             style={s.description}
             labelStyle={s.label as any}

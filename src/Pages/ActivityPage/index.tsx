@@ -28,6 +28,10 @@ const ActivityPage: React.FC = () => {
     <DefaultLayout>
       <Title style={{ textAlign: "center" }}>Activity Page</Title>
 
+      <p style={{ fontSize: 60, color: "red" }}>
+        THIS PAGE IS UNDER CONSTRUCTION ON THE MAIN PAGE
+      </p>
+
       {posts.length > 0 &&
         posts.map((post) => {
           return (
