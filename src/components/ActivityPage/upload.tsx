@@ -13,8 +13,6 @@ const FileUpload: React.FC<IProps> = (props) => {
   const [file, setFile] = useState<any>(null);
   const [uploading, setUploading] = useState<boolean>(false);
 
-  console.log("disabled?", disableUpload);
-
   const submitFile = async () => {
     if (disableUpload) {
       message.error(errorMessage);
@@ -29,7 +27,7 @@ const FileUpload: React.FC<IProps> = (props) => {
         setUploading(true);
 
         await axios
-          .post(`http://localhost:3001/upload`, formData, {
+          .post(`https://pawfriends-api.herokuapp.com/upload`, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
