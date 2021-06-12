@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pawfriends-CMS/static/css/main.56c5457c.chunk.css",
+    "main.js": "/pawfriends-CMS/static/js/main.fba5100d.chunk.js",
+    "main.js.map": "/pawfriends-CMS/static/js/main.fba5100d.chunk.js.map",
+    "runtime-main.js": "/pawfriends-CMS/static/js/runtime-main.526a93e8.js",
+    "runtime-main.js.map": "/pawfriends-CMS/static/js/runtime-main.526a93e8.js.map",
+    "static/css/2.64f20202.chunk.css": "/pawfriends-CMS/static/css/2.64f20202.chunk.css",
+    "static/js/2.6d978c74.chunk.js": "/pawfriends-CMS/static/js/2.6d978c74.chunk.js",
+    "static/js/2.6d978c74.chunk.js.map": "/pawfriends-CMS/static/js/2.6d978c74.chunk.js.map",
+    "index.html": "/pawfriends-CMS/index.html",
+    "static/css/2.64f20202.chunk.css.map": "/pawfriends-CMS/static/css/2.64f20202.chunk.css.map",
+    "static/css/main.56c5457c.chunk.css.map": "/pawfriends-CMS/static/css/main.56c5457c.chunk.css.map",
+    "static/js/2.6d978c74.chunk.js.LICENSE.txt": "/pawfriends-CMS/static/js/2.6d978c74.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.526a93e8.js",
+    "static/css/2.64f20202.chunk.css",
+    "static/js/2.6d978c74.chunk.js",
+    "static/css/main.56c5457c.chunk.css",
+    "static/js/main.fba5100d.chunk.js"
+  ]
+}
